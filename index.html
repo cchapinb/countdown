@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Countdown</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#A8BAA0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+    font-family:Georgia, "Times New Roman", serif;
+}
+
+#countdown{
+    display:flex;
+    align-items:flex-start;
+    gap:16px;
+}
+
+.unit{
+    text-align:center;
+}
+
+.number{
+    font-size:72px;
+    color:white;
+    line-height:1;
+    font-weight:400;
+}
+
+.seconds .number{
+    color:#D8AA00;
+}
+
+.label{
+    margin-top:14px;
+    font-size:18px;
+    color:white;
+    letter-spacing:1px;
+    font-weight:bold;
+}
+
+.colon{
+    font-size:72px;
+    color:white;
+    line-height:1;
+}
+</style>
+</head>
+
+<body>
+
+<div id="countdown">
+
+<div class="unit">
+<div class="number" id="days">000</div>
+<div class="label">DAYS</div>
+</div>
+
+<div class="colon">:</div>
+
+<div class="unit">
+<div class="number" id="hours">00</div>
+<div class="label">HOURS</div>
+</div>
+
+<div class="colon">:</div>
+
+<div class="unit">
+<div class="number" id="minutes">00</div>
+<div class="label">MINUTES</div>
+</div>
+
+<div class="colon">:</div>
+
+<div class="unit seconds">
+<div class="number" id="seconds">00</div>
+<div class="label">SECONDS</div>
+</div>
+
+</div>
+
+<script>
+
+// CHANGE THIS DATE
+const targetDate = new Date("2027-01-01T00:00:00").getTime();
+
+function updateCountdown(){
+
+const now = new Date().getTime();
+const distance = targetDate - now;
+
+if(distance <= 0){
+document.getElementById("countdown").innerHTML="<h1>Time's Up!</h1>";
+return;
+}
+
+const days = Math.floor(distance/(1000*60*60*24));
+const hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+const minutes = Math.floor((distance%(1000*60*60))/(1000*60));
+const seconds = Math.floor((distance%(1000*60))/1000);
+
+document.getElementById("days").textContent = days;
+document.getElementById("hours").textContent = String(hours).padStart(2,'0');
+document.getElementById("minutes").textContent = String(minutes).padStart(2,'0');
+document.getElementById("seconds").textContent = String(seconds).padStart(2,'0');
+
+}
+
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+</script>
+
+</body>
+</html>
